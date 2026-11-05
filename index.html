@@ -39,7 +39,7 @@ h1,h2,h3,p{margin:0}
 .score{text-align:center;min-width:96px}
 .score b{display:block;font-family:var(--display);font-weight:400;font-size:48px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
 .score span{font-weight:700;font-size:14px;color:var(--cream)}
-.reg .score,.reg .progress,.reg .tabs,.reg .hbtns{display:none}
+.reg .score,.reg .progress,.reg .tabs{display:none}
 .reg .hero .in{padding-bottom:28px}
 
 /* progress */
@@ -66,7 +66,9 @@ button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-vi
 .kids button{min-height:38px;padding:0 14px;border:2px solid var(--line);border-radius:99px;background:#fff;font-weight:800;font-size:14px;color:var(--teal);cursor:pointer}
 .kids button[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
 .kids button.add{border-style:dashed}
-.reg .kids,.kids:empty{display:none}
+.kids:empty{display:none}
+.kids .kl{align-self:center;font-size:14px;font-weight:800;color:var(--muted)}
+.kids button.rs{border-color:#9B2226;color:#9B2226}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
 .sync{margin:0;font-size:13px;color:var(--muted)}
 .mode{display:inline-flex;border:2px solid var(--line);border-radius:99px;overflow:hidden;flex:none}
@@ -263,7 +265,6 @@ body.phone .reward .ra svg{max-height:64px;width:auto}
     <div>
       <h1>تحدّي جزء عمّ</h1>
       <div class="sub">الحفظ · المراجعة · الجوائز</div>
-      <div class="hbtns" id="hbtns"></div>
     </div>
     <div class="score"><b id="pts">0</b><span id="ptsLbl">نقطة</span></div>
   </div>
@@ -538,12 +539,6 @@ function askPin(){return state.pin?pinDialog('verify'):pinDialog('create')}
 function renderHero(c){
   document.getElementById('pts').textContent=c.pts;
   document.getElementById('ptsLbl').textContent=c.pts===1?'نقطة':'نقاط';
-  var hb=document.getElementById('hbtns');
-  hb.innerHTML=(store.profiles.length?'<span class="hl">تغيير الطفل:</span>':'')+store.profiles.map(function(p){
-    var on=P&&p.id===P.id;
-    return'<button type="button" class="who" data-act="switch" data-id="'+esc(p.id)+'" aria-pressed="'+(on?'true':'false')+'">'+(on?'<span id="whoName"></span>':esc(p.child))+'</button>';
-  }).join('')+'<button type="button" class="who" data-act="addchild">+ إضافة طفل</button><button type="button" class="who" data-act="reset">البدء من جديد</button>';
-  var wn=document.getElementById('whoName');if(wn)wn.textContent=P?P.child:'';
 }
 function renderProgress(c){
   var segs='',marks='',i;
@@ -760,9 +755,11 @@ document.addEventListener('click',function(ev){
 });
 window.addEventListener('resize',function(){if(!viewMode){var was=document.body.classList.contains('pc');if(was!==isPC())render()}});
 function kidsHTML(){
-  return'';
-  if(!P||!P.rwSet||tab!=='home')return'';
-  return store.profiles.map(function(p){return'<button type="button" data-act="switch" data-id="'+esc(p.id)+'" aria-pressed="'+(p.id===P.id?'true':'false')+'">'+esc(p.child)+'</button>'}).join('')+'<button type="button" class="add" data-act="addchild">+ إضافة طفل</button>';
+  if(!P)return'';
+  return'<span class="kl">تغيير الطفل:</span>'+store.profiles.map(function(p){
+    var on=p.id===P.id;
+    return'<button type="button" data-act="switch" data-id="'+esc(p.id)+'" aria-pressed="'+(on?'true':'false')+'">'+(on?'<span id="whoName">'+esc(p.child)+'</span>':esc(p.child))+'</button>';
+  }).join('')+'<button type="button" class="add" data-act="addchild">+ إضافة طفل</button><button type="button" class="rs" data-act="reset">البدء من جديد</button>';
 }
 function render(){
   applyMode();
