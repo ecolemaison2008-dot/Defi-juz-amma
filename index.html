@@ -27,20 +27,20 @@ h1,h2,h3,p{margin:0}
 /* header */
 .hero{position:relative;background:var(--teal);overflow:hidden;color:#fff}
 .hero svg.pat{position:absolute;inset:0;width:100%;height:100%}
-.hero .in{position:relative;max-width:720px;margin:0 auto;padding:18px 16px 56px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
-.hero h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1.1;color:var(--cream)}
-.hero .sub{color:#F5C242;font-weight:800;font-size:16px}
-.who{display:inline-flex;align-items:center;gap:8px;margin-top:6px;min-height:36px;padding:2px 14px;border:2px solid rgba(255,255,255,.55);border-radius:99px;background:transparent;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.hero .in{position:relative;max-width:720px;margin:0 auto;padding:12px 16px 44px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.hero h1{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;color:var(--cream)}
+.hero .sub{color:#F5C242;font-weight:800;font-size:14px}
+.who{display:inline-flex;align-items:center;gap:8px;margin-top:4px;min-height:32px;padding:0 12px;border:2px solid rgba(255,255,255,.55);border-radius:99px;background:transparent;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
 .who small{font-size:12px;opacity:.8}
-.score{text-align:center;min-width:112px}
-.score b{display:block;font-family:var(--display);font-weight:400;font-size:64px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.score{text-align:center;min-width:96px}
+.score b{display:block;font-family:var(--display);font-weight:400;font-size:48px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
 .score span{font-weight:700;font-size:14px;color:var(--cream)}
 .reg .score,.reg .progress,.reg .tabs,.reg .who{display:none}
 .reg .hero .in{padding-bottom:28px}
 
 /* progress */
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
-.progress{margin-top:-40px;position:relative}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.progress{margin-top:-32px;position:relative;padding:12px 14px}
 .reg .wrap{padding-top:16px}
 .track{display:flex;gap:3px;height:16px}
 .seg{flex:1 1 0;background:color-mix(in srgb,var(--c) 18%,#fff);border-radius:4px;overflow:hidden;display:flex}
@@ -54,13 +54,21 @@ h1,h2,h3,p{margin:0}
 .next span{color:var(--muted)}.next b{font-weight:800}.next em{font-style:normal;color:var(--teal-2);font-weight:700}
 
 /* tabs */
-.tabs{position:sticky;top:0;z-index:5;display:flex;gap:5px;margin:14px -16px 0;padding:8px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
-.tab{flex:1 1 0;min-width:0;min-height:44px;padding:6px 2px;border:2px solid var(--line);border-radius:12px;background:#fff;font-weight:800;font-size:14px;cursor:pointer}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:5px;margin:10px -16px 0;padding:6px 16px;background:var(--paper);border-bottom:1px solid var(--line)}
+.tab{flex:1 1 0;min-width:0;min-height:40px;padding:6px 2px;border:2px solid var(--line);border-radius:12px;background:#fff;font-weight:800;font-size:14px;cursor:pointer}
 .tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
 button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #1F6FB5;outline-offset:2px}
-.sync{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+.sync{margin:0;font-size:13px;color:var(--muted)}
+.mode{display:inline-flex;border:2px solid var(--line);border-radius:99px;overflow:hidden;flex:none}
+.mode button{border:0;background:#fff;padding:2px 14px;min-height:36px;font-weight:800;font-size:14px;cursor:pointer;color:var(--teal)}
+.mode button[aria-pressed=true]{background:var(--teal);color:#fff}
+.mode .ml{display:flex;align-items:center;padding:0 10px;font-size:13px;font-weight:700;color:var(--muted);background:var(--paper)}
+.fold>summary{font-size:19px;font-weight:800;color:var(--teal);cursor:pointer;min-height:32px;display:flex;align-items:center}
+.fold[open]>summary{margin-bottom:6px}
+body.phone .wrap,body.phone .hero .in{max-width:480px}
 .sync.warn{color:#8A3B00;font-weight:700}
-#view{display:flex;flex-direction:column;gap:14px;margin-top:12px}
+#view{display:flex;flex-direction:column;gap:12px;margin-top:8px}
 
 /* next reward card + path */
 .nextc{display:grid;grid-template-columns:1fr 104px;gap:10px;align-items:center;border:3px solid var(--c);background:var(--t)}
@@ -81,8 +89,8 @@ button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-vi
 /* block card + rows */
 .blk h2{font-size:20px;font-weight:800;color:var(--teal)}
 .blk .meta{color:var(--muted);font-size:14px}
-.rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.sur{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--x1)}
+.rows{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.sur{display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:14px;background:var(--x1)}
 .sur.m2{background:var(--x2)}.sur.m3{background:var(--x3)}
 .sur.locked{opacity:.62}
 .sur.ready{border:2px solid var(--ready);background:var(--ready-bg)}
@@ -174,16 +182,47 @@ details.grp .rows{margin:0;padding:0 12px 12px}
 .toast{position:fixed;bottom:16px;left:16px;right:16px;margin:0 auto;max-width:420px;z-index:30;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
+body.pc{font-size:17px}
+body.pc .wrap,body.pc .hero .in{max-width:1160px;padding-inline:32px}
+body.pc .hero .in{padding-top:14px;padding-bottom:50px}
+body.pc .hero h1{font-size:46px}
+body.pc .score b{font-size:58px}
+body.pc .tabs{margin-inline:-32px;padding-inline:32px;justify-content:center}
+body.pc .tab{flex:0 1 190px;font-size:16px}
+body.pc .progress{padding:14px 22px}
+body.pc .track{height:16px}
+body.pc .mark b{font-size:15px}
+body.pc .mark span{font-size:13px}
+body.pc #view{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+body.pc #view[data-tab=home]{grid-template-columns:minmax(0,3fr) minmax(0,2fr);grid-template-rows:auto 1fr}
+body.pc #view[data-tab=home] .blk{grid-column:1;grid-row:1/span 2}
+body.pc #view[data-tab=home] .nextc{grid-column:2;grid-row:1}
+body.pc #view[data-tab=home] .path{grid-column:2;grid-row:2}
+body.pc #view[data-tab=home]>section:not(.blk):not(.nextc):not(.path){grid-column:1/-1}
+body.pc #view[data-tab=guide]{grid-template-columns:minmax(0,1fr)}
+body.pc #view[data-tab=guide] .steps{display:grid;grid-template-columns:1fr 1fr;gap:16px 28px}
+body.pc.reg #view{display:flex;flex-direction:column;max-width:560px;margin-inline:auto}
+body.pc .reward{grid-template-columns:110px 1fr 120px}
+body.pc .reward.noart{grid-template-columns:110px 1fr}
+body.pc .sur .act{min-width:136px}
+body.pc #view[data-tab=all]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+body.pc details.grp[open]{grid-column:1/-1}
+body.pc details.grp[open] .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body.pc .tab{min-height:40px}
+body.pc #view[data-tab=home] .blk .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+body.phone .reward .rb{padding:6px 10px;gap:2px}
+body.phone .reward .rn b{font-size:28px}
+body.phone .reward .ra svg{max-height:64px;width:auto}
 @media (min-width:560px){
   .mark span{display:block}
   .reward{grid-template-columns:104px 1fr 130px}
-  .hero h1{font-size:52px}
+  .hero h1{font-size:40px}
 }
 @media (max-width:420px){
   .sur .act{min-width:96px}
   .sur .nm{font-size:23px}
-  .score b{font-size:54px}
-  .hero h1{font-size:34px}
+  .score b{font-size:44px}
+  .hero h1{font-size:28px}
   .nextc{grid-template-columns:1fr 84px}
 }
 </style>
@@ -222,7 +261,7 @@ details.grp .rows{margin:0;padding:0 12px 12px}
     <button class="tab" role="tab" data-act="tab" data-tab="parents">الأهل</button>
     <button class="tab" role="tab" data-act="tab" data-tab="guide">الدليل</button>
   </nav>
-  <p class="sync" id="sync"></p>
+  <div class="bar"><p class="sync" id="sync"></p><div class="mode" role="group" aria-label="طريقة العرض"><span class="ml">العرض</span><button type="button" data-act="mode" data-m="phone" aria-pressed="false">هاتف</button><button type="button" data-act="mode" data-m="pc" aria-pressed="false">حاسوب</button></div></div>
   <div id="view"></div>
 </main>
 
@@ -295,9 +334,8 @@ var LS='juz-amma-v3';
 var store={v:3,active:'',profiles:[],lastBackup:'',dead:{}};
 var sync={ref:null,ready:false,busy:false,dirty:false,err:''};
 var P=null, state=emptyProfile(), storageOK=true, tab='home';
-function emptyProfile(){return{id:'',parent:'',child:'',g:'f',pin:'',s:{},b:{},rw:{},rwc:{},start:'',ts:0}}
-function fixProfile(p){p=p||{};return{id:p.id||uid(),parent:String(p.parent||''),child:String(p.child||''),g:p.g==='m'?'m':'f',pin:p.pin||'',s:p.s||{},b:p.b||{},rw:p.rw||{},rwc:p.rwc||{},start:p.start||'',ts:Number(p.ts)||0}}
-function G(f,m){return state.g==='m'?m:f}
+function emptyProfile(){return{id:'',parent:'',child:'',pin:'',s:{},b:{},rw:{},rwc:{},start:'',ts:0}}
+function fixProfile(p){p=p||{};return{id:p.id||uid(),parent:String(p.parent||''),child:String(p.child||''),pin:p.pin||'',s:p.s||{},b:p.b||{},rw:p.rw||{},rwc:p.rwc||{},rwSet:p.rwSet===undefined?true:!!p.rwSet,start:p.start||'',ts:Number(p.ts)||0}}
 function loadStore(){
   try{localStorage.setItem('__t','1');localStorage.removeItem('__t')}catch(e){storageOK=false}
   try{
@@ -415,7 +453,7 @@ function surahsToReach(th){
   return 0;
 }
 function cheerLine(r,c){
-  var pre=pctOf(r,c)>=85?G('قريبة جدًا! ','قريب جدًا! '):'';
+  var pre=pctOf(r,c)>=85?'اقتربنا كثيرًا! ':'';
   if(r.key==='final'){var left=LIST.length-c.recited;return left>0?pre+'بقيت '+sourTxt(left)+' للحفلة الكبرى.':'بقيت مراجعة المجموعة الأخيرة فقط!'}
   var rem=r.th-c.pts,kk=curBlock(),ns=null;
   if(kk>=0)blockItems(kk).forEach(function(x){if(E(x.num).st!==2&&x.pts>=rem&&(!ns||x.pts<ns.pts))ns=x});
@@ -501,12 +539,12 @@ function rowHTML(i){
     act='<span class="tag ok">'+CHECK+'مسمَّعة</span>'+(blockPassed(k)?'':'<button class="link" data-act="undo" data-num="'+s.num+'">تراجع</button>');
   }else if(st==='ready'){
     info='جاهزة للتسميع أمام الأهل';
-    act='<button class="btn alt" data-act="recite" data-num="'+s.num+'">'+LOCK+'اعتماد التسميع</button>'+'<button class="link" data-act="unready" data-num="'+s.num+'">'+G('لست جاهزة بعد','لست جاهزًا بعد')+'</button>';
+    act='<button class="btn alt" data-act="recite" data-num="'+s.num+'">'+LOCK+'اعتماد التسميع</button>'+'<button class="link" data-act="unready" data-num="'+s.num+'">'+'ليس بعد'+'</button>';
   }else if(st==='redo'){
     info='تُعاد بعد المراجعة';
-    act='<span class="tag wait">تُعاد</span>'+'<button class="btn" data-act="ready" data-num="'+s.num+'">'+G('أنا جاهزة','أنا جاهز')+'</button>';
+    act='<span class="tag wait">تُعاد</span>'+'<button class="btn" data-act="ready" data-num="'+s.num+'">'+'أريد التسميع'+'</button>';
   }else if(st==='active'){
-    act='<button class="btn" data-act="ready" data-num="'+s.num+'">'+G('أنا جاهزة','أنا جاهز')+'</button>';
+    act='<button class="btn" data-act="ready" data-num="'+s.num+'">'+'أريد التسميع'+'</button>';
   }else if(st==='lock-order'){
     info='تأتي بعد السورة السابقة';
     act='<span class="tag lock">'+LOCK+'مقفلة</span>';
@@ -519,7 +557,7 @@ function rowHTML(i){
 
 function nextCard(c){
   var r=nextRewardObj(c);
-  if(!r)return'<section class="card"><h2>مبروك! فتحتَ كل الجوائز</h2><p>وصل '+esc(P.child)+' إلى نهاية الرحلة.</p></section>'.replace('فتحتَ',G('فتحتِ','فتحتَ'));
+  if(!r)return'<section class="card"><h2>مبروك! فُتحت كل الجوائز</h2><p>وصل '+esc(P.child)+' إلى نهاية الرحلة.</p></section>';
   var p=pctOf(r,c);
   var cur=r.key==='final'?c.recited+' / '+LIST.length:c.pts+' / '+r.th;
   return'<section class="card nextc'+(r.art?'':' noart')+'" style="--c:'+r.c+';--t:'+r.t+';--tt:'+r.tt+'"><div><div class="k">جائزتك القادمة</div><h2>'+r.name+'</h2><div class="rbar" role="img" aria-label="'+p+'%"><i style="width:'+p+'%"></i></div><div class="pt"><span>'+cur+'</span><span>'+leftTxt(r,c)+'</span></div><div class="cheer">'+cheerLine(r,c)+'</div></div>'+artOf(r)+'</section>';
@@ -529,12 +567,12 @@ function pathCard(c){
     var un=unlocked(r,c),p=pctOf(r,c),l=un?(state.rw[r.key]?'استُلمت':'مفتوحة'):leftTxt(r,c).replace('تبقّى ','');
     return'<div class="prow" style="--c:'+r.c+'"><span class="pn">'+r.short+'</span><div class="rbar" role="img" aria-label="'+p+'%"><i style="width:'+p+'%"></i></div><span class="pl'+(un?' ok':'')+'">'+(un?'✓ ':'')+l+'</span></div>';
   }).join('');
-  return'<section class="card path"><h2>قربك من كل جائزة</h2>'+rows+'</section>';
+  return'<details class="card path fold"'+(isPC()?' open':'')+'><summary>قربك من كل جائزة</summary>'+rows+'</details>';
 }
 
 function blockCard(){
   var k=curBlock();
-  if(k<0)return'<section class="card"><h2>'+G('أتممتِ','أتممتَ')+' كل المجموعات</h2><p>'+G('اجتازت','اجتاز')+' '+esc(P.child)+' مراجعة المجموعات الثماني. الحفلة الكبرى في الانتظار.</p></section>';
+  if(k<0)return'<section class="card"><h2>'+'اكتملت كل المجموعات</h2><p>تمّت مراجعة المجموعات الثماني لـ'+esc(P.child)+'. الحفلة الكبرى في الانتظار.</p></section>';
   var items=blockItems(k),rec=items.filter(function(s){return E(s.num).st===2}).length,ay=items.reduce(function(a,s){return a+s.ayat},0);
   var rows='',i;
   for(i=k*BL;i<k*BL+items.length;i++)rows+=rowHTML(i);
@@ -542,7 +580,7 @@ function blockCard(){
   if(rec===items.length){
     var u=state.b[k]&&state.b[k].u,left=u?daysBetween(today(),u):0;
     if(left>0)foot='<div class="foot"><span class="hint">اكتملت السور. المراجعة الشاملة بعد '+daysTxt(left)+' ('+fmt(u)+').</span><button class="btn" disabled>مراجعة المجموعة</button></div>';
-    else foot='<div class="foot"><span class="hint">حان وقت المراجعة: '+G('تسمّع','يسمّع')+' '+esc(P.child)+' السور كلها دون مساعدة.</span><button class="btn" data-act="review" data-k="'+k+'">'+LOCK+'مراجعة المجموعة</button></div>';
+    else foot='<div class="foot"><span class="hint">حان وقت المراجعة: اطلب من '+esc(P.child)+' تسميع السور كلها دون مساعدة.</span><button class="btn" data-act="review" data-k="'+k+'">'+LOCK+'مراجعة المجموعة</button></div>';
   }else{
     foot='<div class="foot"><span class="hint">'+rec+' من '+items.length+' سور مسمَّعة. المجموعة التالية تُفتح بعد المراجعة.</span></div>';
   }
@@ -589,28 +627,56 @@ function viewParents(){
   var bk=store.lastBackup?'آخر نسخة احتياطية: '+fmt(store.lastBackup)+'.':'لم تُحفَظ نسخة احتياطية بعد.';
   return''
   +'<section class="card"><h2>الملف: '+esc(P.child)+'</h2><p>الوليّ: '+esc(P.parent)+'. عدد الأطفال على هذا الجهاز: '+store.profiles.length+'.</p><div class="row"><button class="btn ghost" data-act="addchild">تسجيل طفل جديد</button><button class="btn ghost" data-act="profiles">تبديل الطفل</button></div></section>'
-  +'<section class="card"><h2>الهاتف والحاسوب</h2>'+(sync.ref?'<p>التقدّم مرتبط بحساب claude.ai الذي فتحتَ به الرابط. افتح الرابط نفسه على الحاسوب أو على أي جهاز آخر بنفس الحساب، وسيظهر الأطفال أنفسهم والنقاط نفسها.</p>':'<p>هذه النسخة غير مرتبطة بحساب، فالتقدّم محفوظ على هذا الجهاز فقط. لنقله إلى جهاز آخر استعمل النسخة الاحتياطية أدناه.</p>')+'</section>'
+  +'<details class="card fold"><summary>الهاتف والحاسوب</summary>'+(sync.ref?'<p>التقدّم مرتبط بحساب claude.ai الذي فتحتَ به الرابط. افتح الرابط نفسه على الحاسوب أو على أي جهاز آخر بنفس الحساب، وسيظهر الأطفال أنفسهم والنقاط نفسها.</p>':'<p>هذه النسخة غير مرتبطة بحساب، فالتقدّم محفوظ على هذا الجهاز فقط. لنقله إلى جهاز آخر استعمل النسخة الاحتياطية أدناه.</p>')+'</details>'
   +'<section class="card"><h2>نسخة احتياطية</h2><p>'+(sync.ref?'للاحتياط فقط، ولنقل التقدّم إلى حساب آخر.':'التقدّم محفوظ في متصفح هذا الجهاز فقط.')+' إذا مُسح المتصفح أو غُيّر الجهاز يضيع التقدّم. انسخ نسخة احتياطية كل شهر، واحفظها في رسالة لنفسك.</p><p class="hint" style="margin-top:6px">'+bk+'</p><div class="row"><button class="btn" data-act="backup">نسخ النسخة الاحتياطية</button><button class="btn ghost" data-act="restore">استعادة من نسخة</button></div></section>'
   +'<section class="card"><h2>الرمز السري</h2><p>يلزم الرمز لاعتماد التسميع، ومراجعة المجموعة، واستلام الجوائز.</p><div class="row"><button class="btn ghost" data-act="changepin">تغيير الرمز</button></div></section>'
-  +'<section class="card"><h2>تخصيص الجوائز</h2><p>اكتب الجائزة التي تناسب أسرتك بدل كل جائزة. عدد النقاط لكل جائزة يبقى كما هو.</p><div class="row"><button class="btn ghost" data-act="editrw">تعديل الجوائز</button></div></section>'
-  +'<section class="card"><h2>الوتيرة المتوقعة</h2>'+paceHtml+'</section>'
-  +'<section class="card"><h2>القواعد</h2><ul>'
+  +'<section class="card"><h2>تخصيص الجوائز</h2><p>غيّر الجائزة عند كل عتبة من النقاط. عدد النقاط لكل عتبة يبقى كما هو.</p><div class="row"><button class="btn ghost" data-act="editrw">تعديل الجوائز</button></div></section>'
+  +'<details class="card fold"><summary>الوتيرة المتوقعة</summary>'+paceHtml+'</details>'
+  +'<details class="card fold"><summary>القواعد</summary><ul>'
   +'<li>من 1 إلى 14 آية: نقطة لكل آية. من 15 إلى 20: نقطتان. من 21 فأكثر: ثلاث نقاط.</li>'
   +'<li>تُحتسب نقاط السورة عند اعتماد تسميعها من الأهل.</li>'
   +'<li>مكافأة 50 نقطة عند السورة العاشرة والعشرين والثلاثين.</li>'
-  +'<li>المجموعات ثابتة من الأقصر إلى الأطول، في مجموعات من 5 سور (الأخيرة 3 سور). داخل المجموعة يختار الطفل السورة التي يريد حفظها أولًا.</li>'
+  +'<li>المجموعات ثابتة من الأقصر إلى الأطول، في مجموعات من 5 سور (الأخيرة 3 سور). داخل المجموعة يختار الوليّ أو الطفل السورة التي يبدأ بها.</li>'
   +'<li>بعد اكتمال المجموعة وبعد '+daysTxt(GAP)+'، مراجعة شاملة دون مساعدة. لا تُفتح المجموعة التالية قبلها.</li>'
   +'<li>السورة التي تتعثر في المراجعة تُعاد وحدها، وتبقى المجموعة مغلقة.</li>'
-  +'<li>النقاط تتراكم ولا تُنفق.</li></ul></section>'
-  +'<section class="card danger"><h2>إعادة الضبط وحذف الملف</h2><p>مسح التقدّم يبدأ من جديد. حذف الملف يزيل هذا الطفل من الجهاز.</p><div class="row"><button class="btn danger" data-act="reset">مسح التقدّم</button><button class="btn danger" data-act="delprofile">حذف الملف</button></div></section>';
+  +'<li>النقاط تتراكم ولا تُنفق.</li></ul></details>'
+  +'<details class="card danger fold"><summary>إعادة الضبط وحذف الملف</summary><p>مسح التقدّم يبدأ من جديد. حذف الملف يزيل هذا الطفل من الجهاز.</p><div class="row"><button class="btn danger" data-act="reset">مسح التقدّم</button><button class="btn danger" data-act="delprofile">حذف الملف</button></div></details>';
 }
 
+function rwLabel(b){return b.key==='final'?'عند ختم السور الـ38 (الحفلة الكبرى)':'عند '+b.num+' نقطة'}
+function rwFieldsHTML(prefix,vals){
+  return BASE_REWARDS.map(function(b){
+    return'<label for="'+prefix+b.key+'">'+rwLabel(b)+'</label><input type="text" id="'+prefix+b.key+'" maxlength="30" value="'+esc(vals[b.key]||'')+'" autocomplete="off">';
+  }).join('');
+}
+function rwCollect(prefix){
+  var n={},ok=true;
+  BASE_REWARDS.forEach(function(b){
+    var nm=document.getElementById(prefix+b.key).value.trim();
+    if(!nm){ok=false;return}
+    if(nm!==b.name)n[b.key]={name:nm};
+  });
+  return ok?n:null;
+}
+function rwFill(prefix){BASE_REWARDS.forEach(function(b){document.getElementById(prefix+b.key).value=b.name})}
+function setupHTML(){
+  return'<section class="card"><h2>تحديد الجوائز</h2><p>اكتب الجائزة التي يحصل عليها الطفل عند كل عتبة من النقاط. اكتب ما يناسب أسرتك وميزانيتك.</p><form id="setupForm" class="form" autocomplete="off">'+rwFieldsHTML('sr_',{})+'<p class="err" id="suErr" role="alert"></p><div class="row"><button class="btn" type="submit">حفظ وبدء التحدّي</button><button class="btn ghost" type="button" id="suSuggest">جوائز مقترحة</button></div></form><p class="hint" style="margin-top:8px">«جوائز مقترحة» تملأ الخانات بأمثلة يمكنك تعديلها. يمكنك تغيير الجوائز لاحقًا من قسم «الأهل».</p></section>';
+}
+document.addEventListener('submit',function(ev){
+  if(ev.target.id!=='setupForm')return;
+  ev.preventDefault();
+  var n=rwCollect('sr_');
+  if(!n){document.getElementById('suErr').textContent='اكتب جائزة لكل عتبة.';return}
+  mutate(function(){state.rwc=n;state.rwSet=true});applyRewards();tab='home';render();window.scrollTo(0,0);toast('أهلًا '+P.child+'! لنبدأ.');
+});
+document.addEventListener('click',function(ev){
+  if(ev.target&&ev.target.id==='suSuggest')rwFill('sr_');
+});
 function regFormHTML(cancelable){
   return'<h2>'+(cancelable?'تسجيل طفل جديد':'مرحبًا بك في تحدّي جزء عمّ')+'</h2><p>سجّل الوليّ والطفل لبدء حفظ سور جزء عمّ والفوز بالجوائز. لا حاجة إلى حساب.</p>'
   +'<form id="regForm" class="form" autocomplete="off">'
   +'<label for="rgParent">اسم الوليّ</label><input id="rgParent" type="text" maxlength="30" required>'
   +'<label for="rgChild">اسم الطفل</label><input id="rgChild" type="text" maxlength="30" required>'
-  +'<fieldset><legend class="sr" style="position:absolute;left:-9999px">الطفل</legend><label><input type="radio" name="rgG" value="f" checked>بنت</label><label><input type="radio" name="rgG" value="m">ولد</label></fieldset>'
   +'<label for="rgPin">رمز الأهل (4 أرقام)</label><input id="rgPin" class="pinf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" required>'
   +'<label for="rgPin2">أعد كتابة الرمز</label><input id="rgPin2" class="pinf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" required>'
   +'<p class="err" id="rgErr" role="alert"></p>'
@@ -622,11 +688,11 @@ function regFormHTML(cancelable){
 function guideHTML(){
   var st=[
    ['تسجيل الوليّ والطفل','عند أول فتح للتطبيق اكتب اسم الوليّ واسم الطفل، واختر رمزًا من 4 أرقام. احتفظ بالرمز لنفسك، فهو الذي يعتمد التسميع والجوائز. لا تحتاج إلى حساب.'],
-   ['اختيار سورة من المجموعة الحالية','السور مقسَّمة إلى مجموعات من 5 سور، من الأقصر إلى الأطول. داخل المجموعة دع الطفل يختار السورة التي يريد حفظها أولًا.'],
+   ['اختيار سورة من المجموعة الحالية','السور مقسَّمة إلى مجموعات من 5 سور، من الأقصر إلى الأطول. داخل المجموعة اختر السورة التي يبدأ بها الطفل، أو دعه يختارها. لا تُفتح المجموعة التالية قبل إتمام السور الخمس ومراجعتها، وفي النهاية تُحفظ السور الـ38 كلها.'],
    ['الضغط على «أنا جاهز»','عندما يشعر الطفل أنه حفظ السورة اطلب منه أن يضغط على الزر. تتحول البطاقة إلى اللون الأزرق وتنتظر تسميعه أمامك.'],
    ['التسميع أمام الوليّ','اطلب من الطفل أن يسمّع السورة عن ظهر قلب دون مساعدة. إذا أتقنها فاضغط «اعتماد التسميع» واكتب رمزك، فتُضاف النقاط فورًا. وإن تعثّر فاترك السورة جاهزة ودعه يحاول مرة أخرى.'],
    ['المراجعة بعد كل مجموعة','عند اكتمال السور الخمس انتظر 7 أيام، ثم اطلب من الطفل أن يسمّع السور كلها دون مساعدة. علّم السور التي تعثّر فيها لتُعاد وحدها. بعد النجاح تُفتح المجموعة التالية.'],
-   ['الجوائز','عندما تصل النقاط إلى جائزة تُفتح في قسم «الجوائز». أعطِ الجائزة للطفل ثم اضغط «تم استلامها» واكتب رمزك. في «مسيرتي» ترى نسبة القرب من كل جائزة. وفي قسم «الأهل» اكتب جائزة تناسب أسرتك بدل كل جائزة.'],
+   ['الجوائز','عندما تصل النقاط إلى جائزة تُفتح في قسم «الجوائز». أعطِ الجائزة للطفل ثم اضغط «تم استلامها» واكتب رمزك. في «مسيرتي» ترى نسبة القرب من كل جائزة. وعند التسجيل اكتب الجائزة التي تناسب أسرتك لكل عتبة من النقاط، ويمكنك تعديلها من قسم «الأهل».'],
    ['حفظ نسخة احتياطية','التقدّم محفوظ في متصفح الجهاز. استعمل دائمًا الجهاز والمتصفح نفسيهما، وانسخ نسخة احتياطية مرة كل شهر من قسم «الأهل».']
   ];
   return'<ol class="steps">'+st.map(function(x){return'<li><b>'+x[0]+'</b>'+x[1]+'</li>'}).join('')+'</ol>'
@@ -651,17 +717,35 @@ function setSync(){
   }
   el.textContent=msg;el.className='sync'+(warn?' warn':'');el.hidden=!msg;
 }
+var viewMode='';try{viewMode=localStorage.getItem('juz-view')||''}catch(e){}
+function isPC(){return viewMode?viewMode==='pc':window.innerWidth>=900}
+function applyMode(){
+  var pc=isPC();
+  document.body.classList.toggle('pc',pc);document.body.classList.toggle('phone',!pc);
+  var mv=document.querySelector('meta[name=viewport]');
+  if(mv)mv.setAttribute('content',(viewMode==='pc'&&screen.width<900)?'width=1100':'width=device-width, initial-scale=1');
+  Array.prototype.forEach.call(document.querySelectorAll('.mode button'),function(b){b.setAttribute('aria-pressed',(b.dataset.m==='pc')===pc?'true':'false')});
+}
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest&&ev.target.closest('[data-act=mode]');
+  if(!b)return;
+  viewMode=b.dataset.m;try{localStorage.setItem('juz-view',viewMode)}catch(e){}
+  render();window.scrollTo(0,0);
+});
+window.addEventListener('resize',function(){if(!viewMode){var was=document.body.classList.contains('pc');if(was!==isPC())render()}});
 function render(){
-  document.body.classList.toggle('reg',!P);
+  applyMode();
+  document.body.classList.toggle('reg',!P||!P.rwSet);
   var c=calc();
   renderHero(c);
   if(!P){
-    document.getElementById('view').innerHTML='<section class="card">'+regFormHTML(false)+'</section>';
+    var vr=document.getElementById('view');vr.setAttribute('data-tab','reg');vr.innerHTML='<section class="card">'+regFormHTML(false)+'</section>';
     setSync();return;
   }
+  if(!P.rwSet){var vs=document.getElementById('view');vs.setAttribute('data-tab','reg');vs.innerHTML=setupHTML();setSync();return}
   renderProgress(c);
   Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.setAttribute('aria-selected',b.dataset.tab===tab?'true':'false')});
-  document.getElementById('view').innerHTML=VIEWS[tab]();
+  var vw=document.getElementById('view');vw.setAttribute('data-tab',tab);vw.innerHTML=VIEWS[tab]();
   setSync();
 }
 
@@ -671,14 +755,14 @@ document.addEventListener('submit',function(ev){
   ev.preventDefault();
   var parent=document.getElementById('rgParent').value.trim(),child=document.getElementById('rgChild').value.trim();
   var pin=document.getElementById('rgPin').value,pin2=document.getElementById('rgPin2').value;
-  var g=document.querySelector('#regForm input[name=rgG]:checked').value,err=document.getElementById('rgErr');
+  var err=document.getElementById('rgErr');
   if(!parent||!child){err.textContent='اكتب اسم الوليّ واسم الطفل.';return}
   if(!/^\d{4}$/.test(pin)){err.textContent='الرمز يتكوّن من 4 أرقام.';return}
   if(pin!==pin2){err.textContent='الرمزان غير متطابقين.';return}
-  var p=fixProfile({id:uid(),parent:parent,child:child,g:g,pin:hashPin(pin),start:today(),ts:Date.now()});
+  var p=fixProfile({id:uid(),parent:parent,child:child,pin:hashPin(pin),start:today(),ts:Date.now(),rwSet:false});
   store.profiles.push(p);setActive(p.id);saveStore();
   if(!document.getElementById('modal').hidden)closeModal();
-  tab='home';render();window.scrollTo(0,0);toast('أهلًا '+child+'! لنبدأ.');
+  tab='home';render();window.scrollTo(0,0);
 });
 function openRegModal(){
   openModal('<div>'+regFormHTML(true)+'</div>');
@@ -725,7 +809,7 @@ async function doRestore(){
 function celebrate(keys){
   if(!keys.length)return;
   var r=REWARDS.filter(function(x){return x.key===keys[keys.length-1]})[0];
-  openModal('<h2>مبروك يا '+esc(P.child)+'!</h2><p>'+G('فتحتِ','فتحتَ')+' جائزة جديدة:</p>'+artOf(r)+'<h3 style="font-family:var(--display);font-weight:400;font-size:28px;text-align:center;color:'+r.tt+'">'+r.name+'</h3><p style="text-align:center">'+r.sub+'</p><div class="row"><button class="btn" id="mok">رائع</button></div>');
+  openModal('<h2>مبروك يا '+esc(P.child)+'!</h2><p>فُتحت جائزة جديدة:</p>'+artOf(r)+'<h3 style="font-family:var(--display);font-weight:400;font-size:28px;text-align:center;color:'+r.tt+'">'+r.name+'</h3><p style="text-align:center">'+r.sub+'</p><div class="row"><button class="btn" id="mok">رائع</button></div>');
   document.getElementById('mok').onclick=closeModal;
 }
 function idx(num){for(var i=0;i<LIST.length;i++){if(LIST[i].num===num)return i}return -1}
@@ -752,7 +836,7 @@ async function doUndo(num){
 async function doReview(k){
   if(!(await askPin()))return;
   var items=blockItems(k);
-  openModal('<h2>مراجعة المجموعة '+(k+1)+'</h2><p>'+G('تسمّع','يسمّع')+' '+esc(P.child)+' السور كلها دون مساعدة. علّم السور التي تحتاج إلى إعادة.</p><form id="rf">'+items.map(function(s){return'<label class="chk"><input type="checkbox" name="redo" value="'+s.num+'"><span class="nm">'+s.name+'</span><span>تُعاد</span></label>'}).join('')+'<div class="row" style="margin-top:6px"><button class="btn" type="submit">اعتماد المراجعة</button><button class="btn ghost" type="button" id="rc">إلغاء</button></div></form>');
+  openModal('<h2>مراجعة المجموعة '+(k+1)+'</h2><p>اطلب من '+esc(P.child)+' تسميع السور كلها دون مساعدة. علّم السور التي تحتاج إلى إعادة.</p><form id="rf">'+items.map(function(s){return'<label class="chk"><input type="checkbox" name="redo" value="'+s.num+'"><span class="nm">'+s.name+'</span><span>تُعاد</span></label>'}).join('')+'<div class="row" style="margin-top:6px"><button class="btn" type="submit">اعتماد المراجعة</button><button class="btn ghost" type="button" id="rc">إلغاء</button></div></form>');
   document.getElementById('rc').onclick=closeModal;
   document.getElementById('rf').onsubmit=function(ev){
     ev.preventDefault();
@@ -765,7 +849,7 @@ async function doReview(k){
     });
     if(failed.length){toast('تُعاد '+sourTxt(failed.length)+' قبل فتح المجموعة التالية.')}
     else{
-      toast(k<NB-1?G('اجتازت','اجتاز')+' المجموعة! فُتحت المجموعة التالية.':G('اجتازت','اجتاز')+' المجموعة الأخيرة!');
+      toast(k<NB-1?'تمّت مراجعة المجموعة! فُتحت المجموعة التالية.':'تمّت مراجعة المجموعة الأخيرة!');
       var added=unlockedKeys().filter(function(x){return before.indexOf(x)<0});
       if(added.length)setTimeout(function(){celebrate(added)},300);
     }
@@ -777,21 +861,15 @@ async function doClaim(key,on){
 }
 async function doEditRewards(){
   if(!(await askPin()))return;
-  var o=state.rwc||{};
-  var html='<h2>تعديل الجوائز</h2><p>اكتب الجائزة التي تريدها بدل الجائزة الأصلية. اترك الخانة فارغة للعودة إلى الجائزة الأصلية.</p><form id="rwForm" style="display:flex;flex-direction:column;gap:10px">'+BASE_REWARDS.map(function(b){
-    var c=o[b.key]||{},nm=(c.name&&c.name!==b.name)?c.name:'';
-    return'<div class="rwf" style="--c:'+b.c+';--t:'+b.t+'"><label for="rn_'+b.key+'">'+(b.key==='final'?'الحفلة الكبرى (بعد 38 سورة)':b.num+' نقطة')+' · الأصلية: '+b.name+'</label><input type="text" id="rn_'+b.key+'" maxlength="30" value="'+esc(nm)+'" placeholder="'+esc(b.name)+'"></div>';
-  }).join('')+'<div class="row"><button class="btn" type="submit">حفظ</button><button class="btn ghost" type="button" id="rwDef">الجوائز الأصلية</button><button class="btn ghost" type="button" id="rwX">إلغاء</button></div></form>';
-  openModal(html);
+  var vals={};
+  REWARDS.forEach(function(r,i){var c=(state.rwc||{})[r.key];vals[r.key]=(c&&c.name)?c.name:BASE_REWARDS[i].name});
+  openModal('<h2>تعديل الجوائز</h2><p>غيّر الجائزة عند كل عتبة من النقاط. عدد النقاط لا يتغيّر.</p><form id="rwForm" class="form">'+rwFieldsHTML('rn_',vals)+'<p class="err" id="rwErr" role="alert"></p><div class="row"><button class="btn" type="submit">حفظ</button><button class="btn ghost" type="button" id="rwSug">جوائز مقترحة</button><button class="btn ghost" type="button" id="rwX">إلغاء</button></div></form>');
   document.getElementById('rwX').onclick=closeModal;
-  document.getElementById('rwDef').onclick=function(){closeModal();mutate(function(){state.rwc={}});applyRewards();render();toast('عادت الجوائز الأصلية.')};
+  document.getElementById('rwSug').onclick=function(){rwFill('rn_')};
   document.getElementById('rwForm').onsubmit=function(ev){
     ev.preventDefault();
-    var n={};
-    BASE_REWARDS.forEach(function(b){
-      var nm=document.getElementById('rn_'+b.key).value.trim();
-      if(nm&&nm!==b.name)n[b.key]={name:nm};
-    });
+    var n=rwCollect('rn_');
+    if(!n){document.getElementById('rwErr').textContent='اكتب جائزة لكل عتبة.';return}
     closeModal();
     mutate(function(){state.rwc=n});applyRewards();render();toast('تم حفظ الجوائز.');
   };
@@ -820,7 +898,7 @@ async function doDelProfile(){
 }
 
 function markReady(num){
-  if(mutate(function(){var e=state.s[num]||(state.s[num]={st:0});e.st=1}))toast(G('أحسنتِ! الآن سمّعيها أمام الأهل ليعتمدوا النقاط.','أحسنتَ! الآن سمّعها أمام الأهل ليعتمدوا النقاط.'));
+  if(mutate(function(){var e=state.s[num]||(state.s[num]={st:0});e.st=1}))toast('ما شاء الله! حان وقت التسميع أمام الأهل ليعتمدوا النقاط.');
 }
 document.addEventListener('click',function(ev){
   var b=ev.target.closest('[data-act]');
