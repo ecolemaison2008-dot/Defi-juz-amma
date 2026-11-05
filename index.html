@@ -31,11 +31,15 @@ h1,h2,h3,p{margin:0}
 .hero h1{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;color:var(--cream)}
 .hero .sub{color:#F5C242;font-weight:800;font-size:14px}
 .who{display:inline-flex;align-items:center;gap:8px;margin-top:4px;min-height:32px;padding:0 12px;border:2px solid rgba(255,255,255,.55);border-radius:99px;background:transparent;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.hbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.hbtns .hl{align-self:center;font-size:13px;font-weight:700;color:var(--cream)}
+.hbtns .who[aria-pressed=true]{background:#fff;color:var(--teal);border-color:#fff}
+.hbtns .who{margin-top:0;font-size:13px;min-height:30px;padding:0 10px}
 .who small{font-size:12px;opacity:.8}
 .score{text-align:center;min-width:96px}
 .score b{display:block;font-family:var(--display);font-weight:400;font-size:48px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
 .score span{font-weight:700;font-size:14px;color:var(--cream)}
-.reg .score,.reg .progress,.reg .tabs,.reg .who{display:none}
+.reg .score,.reg .progress,.reg .tabs,.reg .hbtns{display:none}
 .reg .hero .in{padding-bottom:28px}
 
 /* progress */
@@ -156,7 +160,10 @@ details.grp .rows{margin:0;padding:0 12px 12px}
 .form fieldset{border:2px solid var(--line);border-radius:12px;padding:6px 12px;margin:0;display:flex;gap:20px;align-items:center}
 .form fieldset label{display:flex;align-items:center;gap:8px;min-height:40px}
 .form fieldset input{width:20px;height:20px}
-.err{color:#9B2226;font-weight:700;font-size:14px;min-height:20px}
+.err{color:#9B2226;font-weight:700;font-size:14px}
+.err:empty{display:none}
+.err:not(:empty){background:#FBE9EA;border:1px solid #E3B5B7;border-radius:10px;padding:8px 12px}
+.form input.bad{border-color:#9B2226;background:#FFF6F6}
 
 .nextc.noart{grid-template-columns:1fr}
 .reward.noart{grid-template-columns:84px 1fr}
@@ -256,7 +263,7 @@ body.phone .reward .ra svg{max-height:64px;width:auto}
     <div>
       <h1>تحدّي جزء عمّ</h1>
       <div class="sub">الحفظ · المراجعة · الجوائز</div>
-      <button class="who" id="whoBtn" data-act="profiles" aria-label="تبديل الطفل"><span id="whoName"></span><small>تبديل</small></button>
+      <div class="hbtns" id="hbtns"></div>
     </div>
     <div class="score"><b id="pts">0</b><span id="ptsLbl">نقطة</span></div>
   </div>
@@ -499,6 +506,7 @@ function openModal(html,onEsc){
 function closeModal(){var m=document.getElementById('modal');m.hidden=true;m.innerHTML='';modalClose=null}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modalClose)modalClose()});
 
+function nd(v){return String(v).replace(/[\u0660-\u0669]/g,function(c){return c.charCodeAt(0)-0x0660}).replace(/[\u06F0-\u06F9]/g,function(c){return c.charCodeAt(0)-0x06F0}).replace(/\s+/g,'')}
 function hashPin(p){var x=5381,s='juz|'+p;for(var i=0;i<s.length;i++){x=((x<<5)+x)^s.charCodeAt(i)}return(x>>>0).toString(36)+'.'+s.length}
 
 function pinDialog(mode){
@@ -512,10 +520,10 @@ function pinDialog(mode){
     document.getElementById('pc').onclick=function(){done(false)};
     document.getElementById('pinForm').onsubmit=function(ev){
       ev.preventDefault();
-      var a=document.getElementById('p1').value,err=document.getElementById('pe');
+      var a=nd(document.getElementById('p1').value),err=document.getElementById('pe');
       if(!/^\d{4}$/.test(a)){err.textContent='اكتب 4 أرقام.';return}
       if(creating){
-        var b=document.getElementById('p2').value;
+        var b=nd(document.getElementById('p2').value);
         if(a!==b){err.textContent='الرمزان غير متطابقين.';return}
         mutate(function(){state.pin=hashPin(a)});done(true);
       }else{
@@ -530,7 +538,12 @@ function askPin(){return state.pin?pinDialog('verify'):pinDialog('create')}
 function renderHero(c){
   document.getElementById('pts').textContent=c.pts;
   document.getElementById('ptsLbl').textContent=c.pts===1?'نقطة':'نقاط';
-  document.getElementById('whoName').textContent=P?P.child:'';
+  var hb=document.getElementById('hbtns');
+  hb.innerHTML=(store.profiles.length?'<span class="hl">تغيير الطفل:</span>':'')+store.profiles.map(function(p){
+    var on=P&&p.id===P.id;
+    return'<button type="button" class="who" data-act="switch" data-id="'+esc(p.id)+'" aria-pressed="'+(on?'true':'false')+'">'+(on?'<span id="whoName"></span>':esc(p.child))+'</button>';
+  }).join('')+'<button type="button" class="who" data-act="addchild">+ إضافة طفل</button><button type="button" class="who" data-act="reset">البدء من جديد</button>';
+  var wn=document.getElementById('whoName');if(wn)wn.textContent=P?P.child:'';
 }
 function renderProgress(c){
   var segs='',marks='',i;
@@ -665,6 +678,12 @@ function rwCollect(prefix){
   });
   return ok?n:null;
 }
+function markEmpty(prefix,errId){
+  var first=null;
+  BASE_REWARDS.forEach(function(b){var i=document.getElementById(prefix+b.key);var empty=!i.value.trim();i.classList.toggle('bad',empty);if(empty&&!first)first=i});
+  var e=document.getElementById(errId);e.textContent='اكتب جائزة في كل خانة (الخانات الحمراء فارغة).';
+  if(first){first.focus();e.scrollIntoView({block:'center'})}
+}
 function rwFill(prefix){BASE_REWARDS.forEach(function(b){document.getElementById(prefix+b.key).value=b.name})}
 function setupHTML(){
   return'<section class="card"><h2>تحديد الجوائز</h2><p>اكتب الجائزة التي يحصل عليها الطفل عند كل عتبة من النقاط. اكتب ما يناسب أسرتك وميزانيتك.</p><form id="setupForm" class="form" autocomplete="off">'+rwFieldsHTML('sr_',{})+'<p class="err" id="suErr" role="alert"></p><div class="row"><button class="btn" type="submit">حفظ وبدء التحدّي</button><button class="btn ghost" type="button" id="suSuggest">جوائز مقترحة</button></div></form><p class="hint" style="margin-top:8px">«جوائز مقترحة» تملأ الخانات بأمثلة يمكنك تعديلها. يمكنك تغيير الجوائز لاحقًا من قسم «الأهل».</p></section>';
@@ -673,7 +692,7 @@ document.addEventListener('submit',function(ev){
   if(ev.target.id!=='setupForm')return;
   ev.preventDefault();
   var n=rwCollect('sr_');
-  if(!n){document.getElementById('suErr').textContent='اكتب جائزة لكل عتبة.';return}
+  if(!n){markEmpty('sr_','suErr');return}
   mutate(function(){state.rwc=n;state.rwSet=true});applyRewards();tab='home';render();window.scrollTo(0,0);toast('أهلًا '+P.child+'! لنبدأ.');
 });
 document.addEventListener('click',function(ev){
@@ -741,6 +760,7 @@ document.addEventListener('click',function(ev){
 });
 window.addEventListener('resize',function(){if(!viewMode){var was=document.body.classList.contains('pc');if(was!==isPC())render()}});
 function kidsHTML(){
+  return'';
   if(!P||!P.rwSet||tab!=='home')return'';
   return store.profiles.map(function(p){return'<button type="button" data-act="switch" data-id="'+esc(p.id)+'" aria-pressed="'+(p.id===P.id?'true':'false')+'">'+esc(p.child)+'</button>'}).join('')+'<button type="button" class="add" data-act="addchild">+ إضافة طفل</button>';
 }
@@ -766,11 +786,14 @@ document.addEventListener('submit',function(ev){
   if(ev.target.id!=='regForm')return;
   ev.preventDefault();
   var parent=document.getElementById('rgParent').value.trim(),child=document.getElementById('rgChild').value.trim();
-  var pin=document.getElementById('rgPin').value,pin2=document.getElementById('rgPin2').value;
+  var pin=nd(document.getElementById('rgPin').value),pin2=nd(document.getElementById('rgPin2').value);
   var err=document.getElementById('rgErr');
-  if(!parent||!child){err.textContent='اكتب اسم الوليّ واسم الطفل.';return}
-  if(!/^\d{4}$/.test(pin)){err.textContent='الرمز يتكوّن من 4 أرقام.';return}
-  if(pin!==pin2){err.textContent='الرمزان غير متطابقين.';return}
+  var bad=function(id,m){err.textContent=m;var e=document.getElementById(id);e.classList.add('bad');e.focus();err.scrollIntoView({block:'center'})};
+  Array.prototype.forEach.call(document.querySelectorAll('#regForm input'),function(i){i.classList.remove('bad')});
+  if(!parent){bad('rgParent','اكتب اسم الوليّ.');return}
+  if(!child){bad('rgChild','اكتب اسم الطفل.');return}
+  if(!/^\d{4}$/.test(pin)){bad('rgPin','الرمز يتكوّن من 4 أرقام.');return}
+  if(pin!==pin2){bad('rgPin2','الرمزان غير متطابقين.');return}
   var p=fixProfile({id:uid(),parent:parent,child:child,pin:hashPin(pin),start:today(),ts:Date.now(),rwSet:false});
   store.profiles.push(p);setActive(p.id);saveStore();
   if(!document.getElementById('modal').hidden)closeModal();
@@ -881,7 +904,7 @@ async function doEditRewards(){
   document.getElementById('rwForm').onsubmit=function(ev){
     ev.preventDefault();
     var n=rwCollect('rn_');
-    if(!n){document.getElementById('rwErr').textContent='اكتب جائزة لكل عتبة.';return}
+    if(!n){markEmpty('rn_','rwErr');return}
     closeModal();
     mutate(function(){state.rwc=n});applyRewards();render();toast('تم حفظ الجوائز.');
   };
@@ -941,6 +964,9 @@ document.addEventListener('click',function(ev){
 });
 
 /* ---------- start ---------- */
+window.addEventListener('error',function(e){
+  try{var d=document.getElementById('jserr');if(!d){d=document.createElement('div');d.id='jserr';d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99;background:#9B2226;color:#fff;padding:8px 12px;font:13px/1.4 sans-serif;direction:ltr;text-align:left';document.body.appendChild(d)}d.textContent='Erreur: '+(e.message||'')+' (ligne '+(e.lineno||'?')+')'}catch(x){}
+});
 function startFrom(h){var t=(h||'').replace('#','');if(VIEWS[t])tab=t}
 startFrom(location.hash);
 window.addEventListener('hashchange',function(){startFrom(location.hash);render()});
