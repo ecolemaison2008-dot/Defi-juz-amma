@@ -187,34 +187,42 @@ details.grp .rows{margin:0;padding:0 12px 12px}
 .toast{position:fixed;bottom:16px;left:16px;right:16px;margin:0 auto;max-width:420px;z-index:30;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
-body.pc{font-size:17px}
-body.pc .wrap,body.pc .hero .in{max-width:1160px;padding-inline:32px}
-body.pc .hero .in{padding-top:14px;padding-bottom:50px}
-body.pc .hero h1{font-size:46px}
-body.pc .score b{font-size:58px}
-body.pc .tabs{margin-inline:-32px;padding-inline:32px;justify-content:center}
-body.pc .tab{flex:0 1 190px;font-size:16px}
-body.pc .progress{padding:14px 22px}
-body.pc .track{height:16px}
-body.pc .mark b{font-size:15px}
-body.pc .mark span{font-size:13px}
-body.pc #view{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
-body.pc #view[data-tab=home]{grid-template-columns:minmax(0,3fr) minmax(0,2fr);grid-template-rows:auto 1fr}
+body.pc{font-size:16px}
+body.pc .wrap,body.pc .hero .in{max-width:1700px;padding-inline:28px}
+body.pc .hero .in{padding-top:8px;padding-bottom:40px}
+body.pc .hero h1{font-size:38px}
+body.pc .hero .sub{font-size:14px}
+body.pc .score b{font-size:44px}
+body.pc .score{min-width:80px}
+body.pc .tabs{margin-inline:-28px;padding-inline:28px;justify-content:center;margin-top:8px;padding-block:6px}
+body.pc .tab{flex:0 1 220px;font-size:16px;min-height:38px}
+body.pc .progress{padding:10px 22px;margin-top:-30px}
+body.pc .track{height:14px}
+body.pc .mark b{font-size:14px}
+body.pc .mark span{font-size:12px}
+body.pc .next{margin-top:6px}
+body.pc .tools{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:6px}
+body.pc .tools .kids{margin-top:0}
+body.pc .tools .bar{margin-top:0;gap:16px}
+body.pc #view{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:14px;align-items:start;margin-top:8px}
+body.pc #view[data-tab=home]{grid-template-columns:minmax(0,2fr) minmax(0,1fr);grid-template-rows:auto 1fr}
 body.pc #view[data-tab=home] .blk{grid-column:1;grid-row:1/span 2}
 body.pc #view[data-tab=home] .nextc{grid-column:2;grid-row:1}
 body.pc #view[data-tab=home] .path{grid-column:2;grid-row:2}
 body.pc #view[data-tab=home]>section:not(.blk):not(.nextc):not(.path){grid-column:1/-1}
+body.pc #view[data-tab=home] .blk .rows,body.pc details.grp[open] .rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
 body.pc #view[data-tab=guide]{grid-template-columns:minmax(0,1fr)}
-body.pc #view[data-tab=guide] .steps{display:grid;grid-template-columns:1fr 1fr;gap:16px 28px}
-body.pc.reg #view{display:flex;flex-direction:column;max-width:560px;margin-inline:auto}
-body.pc .reward{grid-template-columns:110px 1fr 120px}
-body.pc .reward.noart{grid-template-columns:110px 1fr}
+body.pc #view[data-tab=guide] .steps,body.pc.reg .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 28px}
+body.pc.reg #view{display:flex;flex-direction:column;align-items:stretch;max-width:1000px;margin-inline:auto}
+body.pc #regForm,body.pc #setupForm,body.pc #rwForm{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 20px}
+body.pc #regForm{grid-template-columns:1fr 1fr}
+body.pc #regForm>.err,body.pc #regForm>.row,body.pc #setupForm>.err,body.pc #setupForm>.row,body.pc #rwForm>.err,body.pc #rwForm>.row{grid-column:1/-1}
+.fld{display:flex;flex-direction:column;gap:6px}
+body.pc .reward{grid-template-columns:100px 1fr 110px}
+body.pc .reward.noart{grid-template-columns:100px 1fr}
 body.pc .sur .act{min-width:136px}
-body.pc #view[data-tab=all]{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+body.pc #view[data-tab=all]{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
 body.pc details.grp[open]{grid-column:1/-1}
-body.pc details.grp[open] .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-body.pc .tab{min-height:40px}
-body.pc #view[data-tab=home] .blk .rows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 body.phone .reward .rb{padding:6px 10px;gap:2px}
 body.phone .reward .rn b{font-size:28px}
 body.phone .reward .ra svg{max-height:64px;width:auto}
@@ -264,10 +272,11 @@ body.phone .reward .ra svg{max-height:64px;width:auto}
     <button class="tab" role="tab" data-act="tab" data-tab="all">السور</button>
     <button class="tab" role="tab" data-act="tab" data-tab="rewards">الجوائز</button>
     <button class="tab" role="tab" data-act="tab" data-tab="parents">الأهل</button>
-    <button class="tab" role="tab" data-act="tab" data-tab="guide">الدليل</button>
+    <button class="tab" role="tab" data-act="tab" data-tab="guide">القواعد</button>
   </nav>
-  <div class="kids" id="kids"></div>
+  <div class="tools"><div class="kids" id="kids"></div>
   <div class="bar"><p class="sync" id="sync"></p><div class="mode" role="group" aria-label="طريقة العرض"><span class="ml">العرض</span><button type="button" data-act="mode" data-m="phone" aria-pressed="false">هاتف</button><button type="button" data-act="mode" data-m="pc" aria-pressed="false">حاسوب</button></div></div>
+  </div>
   <div id="view"></div>
 </main>
 
@@ -638,21 +647,13 @@ function viewParents(){
   +'<section class="card"><h2>الرمز السري</h2><p>يلزم الرمز لاعتماد التسميع، ومراجعة المجموعة، واستلام الجوائز.</p><div class="row"><button class="btn ghost" data-act="changepin">تغيير الرمز</button></div></section>'
   +'<section class="card"><h2>جوائز النقاط</h2><p>اكتب أو غيّر الجائزة عند كل عتبة من النقاط. عدد النقاط لكل عتبة يبقى كما هو.</p><div class="row"><button class="btn ghost" data-act="editrw">تحديد الجوائز</button></div></section>'
   +'<details class="card fold"><summary>الوتيرة المتوقعة</summary>'+paceHtml+'</details>'
-  +'<details class="card fold"><summary>القواعد</summary><ul>'
-  +'<li>من 1 إلى 14 آية: نقطة لكل آية. من 15 إلى 20: نقطتان. من 21 فأكثر: ثلاث نقاط.</li>'
-  +'<li>تُحتسب نقاط السورة عند اعتماد تسميعها من الأهل.</li>'
-  +'<li>مكافأة 50 نقطة عند السورة العاشرة والعشرين والثلاثين.</li>'
-  +'<li>المجموعات ثابتة من الأقصر إلى الأطول، في مجموعات من 5 سور (الأخيرة 3 سور). داخل المجموعة يختار الوليّ أو الطفل السورة التي يبدأ بها.</li>'
-  +'<li>بعد اكتمال المجموعة وبعد '+daysTxt(GAP)+'، مراجعة شاملة دون مساعدة. لا تُفتح المجموعة التالية قبلها.</li>'
-  +'<li>السورة التي تتعثر في المراجعة تُعاد وحدها، وتبقى المجموعة مغلقة.</li>'
-  +'<li>النقاط تتراكم ولا تُنفق.</li></ul></details>'
   +'<section class="card danger"><h2>البدء من جديد</h2><p>يمسح كل التقدّم والجوائز، ثم تكتب الجوائز من جديد. يلزم رمز الأهل.</p><div class="row"><button class="btn danger" data-act="reset">البدء من جديد</button></div></section><details class="card danger fold"><summary>حذف الملف</summary><p>حذف الملف يزيل هذا الطفل من الجهاز.</p><div class="row"><button class="btn danger" data-act="delprofile">حذف الملف</button></div></details>';
 }
 
 function rwLabel(b){return b.key==='final'?'عند ختم السور الـ38 (الحفلة الكبرى)':'عند '+b.num+' نقطة'}
 function rwFieldsHTML(prefix,vals){
   return BASE_REWARDS.map(function(b){
-    return'<label for="'+prefix+b.key+'">'+rwLabel(b)+'</label><input type="text" id="'+prefix+b.key+'" maxlength="30" value="'+esc(vals[b.key]||'')+'" autocomplete="off">';
+    return'<div class="fld"><label for="'+prefix+b.key+'">'+rwLabel(b)+'</label><input type="text" id="'+prefix+b.key+'" maxlength="30" value="'+esc(vals[b.key]||'')+'" autocomplete="off"></div>';
   }).join('');
 }
 function rwCollect(prefix){
@@ -681,14 +682,14 @@ document.addEventListener('click',function(ev){
 function regFormHTML(cancelable){
   return'<h2>'+(cancelable?'تسجيل طفل جديد':'مرحبًا بك في تحدّي جزء عمّ')+'</h2><p>سجّل الوليّ والطفل لبدء حفظ سور جزء عمّ والفوز بالجوائز. لا حاجة إلى حساب.</p>'
   +'<form id="regForm" class="form" autocomplete="off">'
-  +'<label for="rgParent">اسم الوليّ</label><input id="rgParent" type="text" maxlength="30" required>'
-  +'<label for="rgChild">اسم الطفل</label><input id="rgChild" type="text" maxlength="30" required>'
-  +'<label for="rgPin">رمز الأهل (4 أرقام)</label><input id="rgPin" class="pinf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" required>'
-  +'<label for="rgPin2">أعد كتابة الرمز</label><input id="rgPin2" class="pinf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" required>'
+  +'<div class="fld"><label for="rgParent">اسم الوليّ</label><input id="rgParent" type="text" maxlength="30" required></div>'
+  +'<div class="fld"><label for="rgChild">اسم الطفل</label><input id="rgChild" type="text" maxlength="30" required></div>'
+  +'<div class="fld"><label for="rgPin">رمز الأهل (4 أرقام)</label><input id="rgPin" class="pinf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" required></div>'
+  +'<div class="fld"><label for="rgPin2">أعد كتابة الرمز</label><input id="rgPin2" class="pinf" type="password" inputmode="numeric" maxlength="4" autocomplete="off" required></div>'
   +'<p class="err" id="rgErr" role="alert"></p>'
   +'<div class="row" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">ابدأ التحدّي</button>'+(cancelable?'<button class="btn ghost" type="button" id="rgCancel">إلغاء</button>':'')+'</div></form>'
   +'<p class="hint" style="margin-top:8px">يُحفَظ التقدّم على هذا الجهاز. يمكن نسخه احتياطيًا من قسم «الأهل».</p>'
-  +(cancelable?'':'<details class="grp" style="margin-top:12px" open><summary><span>كيف يعمل التحدّي؟</span></summary><div style="padding:0 14px 14px">'+guideHTML()+'</div></details>');
+  +(cancelable?'':'<details class="grp" style="margin-top:12px"'+(isPC()?'':' open')+'><summary><span>كيف يعمل التحدّي؟</span></summary><div style="padding:0 14px 14px">'+guideHTML()+'</div></details>');
 }
 
 function guideHTML(){
@@ -706,7 +707,7 @@ function guideHTML(){
   +'<table class="ptable"><tr><th>عدد الآيات</th><th>نقاط كل آية</th><th>مثال</th></tr><tr><td>من 1 إلى 14</td><td>نقطة</td><td>5 آيات = 5 نقاط</td></tr><tr><td>من 15 إلى 20</td><td>نقطتان</td><td>19 آية = 38 نقطة</td></tr><tr><td>21 فأكثر</td><td>3 نقاط</td><td>40 آية = 120 نقطة</td></tr></table>'
   +'<div class="gbox">مكافأة 50 نقطة عند السورة العاشرة والعشرين والثلاثين. النقاط تتراكم ولا تُنفق.</div>';
 }
-function viewGuide(){return'<section class="card"><h2>كيف يعمل التحدّي؟</h2>'+guideHTML()+'</section>'}
+function viewGuide(){return'<section class="card"><h2>القواعد وطريقة العمل</h2>'+guideHTML()+'</section>'}
 var VIEWS={home:viewHome,all:viewAll,rewards:viewRewards,parents:viewParents,guide:viewGuide};
 function setSync(){
   var el=document.getElementById('sync'),msg='',warn=false;
