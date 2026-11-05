@@ -58,6 +58,11 @@ h1,h2,h3,p{margin:0}
 .tab{flex:1 1 0;min-width:0;min-height:40px;padding:6px 2px;border:2px solid var(--line);border-radius:12px;background:#fff;font-weight:800;font-size:14px;cursor:pointer}
 .tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
 button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #1F6FB5;outline-offset:2px}
+.kids{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.kids button{min-height:38px;padding:0 14px;border:2px solid var(--line);border-radius:99px;background:#fff;font-weight:800;font-size:14px;color:var(--teal);cursor:pointer}
+.kids button[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
+.kids button.add{border-style:dashed}
+.reg .kids,.kids:empty{display:none}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
 .sync{margin:0;font-size:13px;color:var(--muted)}
 .mode{display:inline-flex;border:2px solid var(--line);border-radius:99px;overflow:hidden;flex:none}
@@ -261,6 +266,7 @@ body.phone .reward .ra svg{max-height:64px;width:auto}
     <button class="tab" role="tab" data-act="tab" data-tab="parents">الأهل</button>
     <button class="tab" role="tab" data-act="tab" data-tab="guide">الدليل</button>
   </nav>
+  <div class="kids" id="kids"></div>
   <div class="bar"><p class="sync" id="sync"></p><div class="mode" role="group" aria-label="طريقة العرض"><span class="ml">العرض</span><button type="button" data-act="mode" data-m="phone" aria-pressed="false">هاتف</button><button type="button" data-act="mode" data-m="pc" aria-pressed="false">حاسوب</button></div></div>
   <div id="view"></div>
 </main>
@@ -630,7 +636,7 @@ function viewParents(){
   +'<details class="card fold"><summary>الهاتف والحاسوب</summary>'+(sync.ref?'<p>التقدّم مرتبط بحساب claude.ai الذي فتحتَ به الرابط. افتح الرابط نفسه على الحاسوب أو على أي جهاز آخر بنفس الحساب، وسيظهر الأطفال أنفسهم والنقاط نفسها.</p>':'<p>هذه النسخة غير مرتبطة بحساب، فالتقدّم محفوظ على هذا الجهاز فقط. لنقله إلى جهاز آخر استعمل النسخة الاحتياطية أدناه.</p>')+'</details>'
   +'<section class="card"><h2>نسخة احتياطية</h2><p>'+(sync.ref?'للاحتياط فقط، ولنقل التقدّم إلى حساب آخر.':'التقدّم محفوظ في متصفح هذا الجهاز فقط.')+' إذا مُسح المتصفح أو غُيّر الجهاز يضيع التقدّم. انسخ نسخة احتياطية كل شهر، واحفظها في رسالة لنفسك.</p><p class="hint" style="margin-top:6px">'+bk+'</p><div class="row"><button class="btn" data-act="backup">نسخ النسخة الاحتياطية</button><button class="btn ghost" data-act="restore">استعادة من نسخة</button></div></section>'
   +'<section class="card"><h2>الرمز السري</h2><p>يلزم الرمز لاعتماد التسميع، ومراجعة المجموعة، واستلام الجوائز.</p><div class="row"><button class="btn ghost" data-act="changepin">تغيير الرمز</button></div></section>'
-  +'<section class="card"><h2>تخصيص الجوائز</h2><p>غيّر الجائزة عند كل عتبة من النقاط. عدد النقاط لكل عتبة يبقى كما هو.</p><div class="row"><button class="btn ghost" data-act="editrw">تعديل الجوائز</button></div></section>'
+  +'<section class="card"><h2>جوائز النقاط</h2><p>اكتب أو غيّر الجائزة عند كل عتبة من النقاط. عدد النقاط لكل عتبة يبقى كما هو.</p><div class="row"><button class="btn ghost" data-act="editrw">تحديد الجوائز</button></div></section>'
   +'<details class="card fold"><summary>الوتيرة المتوقعة</summary>'+paceHtml+'</details>'
   +'<details class="card fold"><summary>القواعد</summary><ul>'
   +'<li>من 1 إلى 14 آية: نقطة لكل آية. من 15 إلى 20: نقطتان. من 21 فأكثر: ثلاث نقاط.</li>'
@@ -640,7 +646,7 @@ function viewParents(){
   +'<li>بعد اكتمال المجموعة وبعد '+daysTxt(GAP)+'، مراجعة شاملة دون مساعدة. لا تُفتح المجموعة التالية قبلها.</li>'
   +'<li>السورة التي تتعثر في المراجعة تُعاد وحدها، وتبقى المجموعة مغلقة.</li>'
   +'<li>النقاط تتراكم ولا تُنفق.</li></ul></details>'
-  +'<details class="card danger fold"><summary>إعادة الضبط وحذف الملف</summary><p>مسح التقدّم يبدأ من جديد. حذف الملف يزيل هذا الطفل من الجهاز.</p><div class="row"><button class="btn danger" data-act="reset">مسح التقدّم</button><button class="btn danger" data-act="delprofile">حذف الملف</button></div></details>';
+  +'<section class="card danger"><h2>البدء من جديد</h2><p>يمسح كل التقدّم والجوائز، ثم تكتب الجوائز من جديد. يلزم رمز الأهل.</p><div class="row"><button class="btn danger" data-act="reset">البدء من جديد</button></div></section><details class="card danger fold"><summary>حذف الملف</summary><p>حذف الملف يزيل هذا الطفل من الجهاز.</p><div class="row"><button class="btn danger" data-act="delprofile">حذف الملف</button></div></details>';
 }
 
 function rwLabel(b){return b.key==='final'?'عند ختم السور الـ38 (الحفلة الكبرى)':'عند '+b.num+' نقطة'}
@@ -733,8 +739,13 @@ document.addEventListener('click',function(ev){
   render();window.scrollTo(0,0);
 });
 window.addEventListener('resize',function(){if(!viewMode){var was=document.body.classList.contains('pc');if(was!==isPC())render()}});
+function kidsHTML(){
+  if(!P||!P.rwSet||tab!=='home')return'';
+  return store.profiles.map(function(p){return'<button type="button" data-act="switch" data-id="'+esc(p.id)+'" aria-pressed="'+(p.id===P.id?'true':'false')+'">'+esc(p.child)+'</button>'}).join('')+'<button type="button" class="add" data-act="addchild">+ إضافة طفل</button>';
+}
 function render(){
   applyMode();
+  document.getElementById('kids').innerHTML=kidsHTML();
   document.body.classList.toggle('reg',!P||!P.rwSet);
   var c=calc();
   renderHero(c);
@@ -880,9 +891,9 @@ async function doChangePin(){
 }
 async function doReset(){
   if(!(await askPin()))return;
-  openModal('<h2>مسح كل التقدّم؟</h2><p>لا يمكن التراجع عن هذا الإجراء.</p><div class="row"><button class="btn danger" id="ry">نعم، امسح</button><button class="btn ghost" id="rn">إلغاء</button></div>');
+  openModal('<h2>البدء من جديد؟</h2><p>يُمسح كل تقدّم '+esc(P.child)+' وتُمسح الجوائز، ثم تكتب الجوائز من جديد. لا يمكن التراجع عن هذا الإجراء.</p><div class="row"><button class="btn danger" id="ry">نعم، ابدأ من جديد</button><button class="btn ghost" id="rn">إلغاء</button></div>');
   document.getElementById('rn').onclick=closeModal;
-  document.getElementById('ry').onclick=function(){closeModal();mutate(function(){state.s={};state.b={};state.rw={};state.start=''})};
+  document.getElementById('ry').onclick=function(){closeModal();mutate(function(){state.s={};state.b={};state.rw={};state.rwc={};state.rwSet=false;state.start=today()});applyRewards();tab='home';render();window.scrollTo(0,0)};
 }
 async function doDelProfile(){
   if(!(await askPin()))return;
