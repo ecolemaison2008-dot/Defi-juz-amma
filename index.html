@@ -572,7 +572,7 @@ function rowHTML(i){
     info='تأتي بعد السورة السابقة';
     act='<span class="tag lock">'+LOCK+'مقفلة</span>';
   }else{
-    info='بعد مراجعة المجموعة '+k;
+    info='بعد إنهاء المجموعة '+k;
     act='<span class="tag lock">'+LOCK+'مقفلة</span>';
   }
   return'<article class="sur m'+s.m+(st.indexOf('lock')===0?' locked':'')+(st==='ready'?' ready':'')+'"'+((st==='active'||st==='redo')?' data-tap="ready" data-num="'+s.num+'"':'')+'><div class="n">'+s.num+'</div><div><div class="nm">'+s.name+'</div><div class="mt">'+meta+'</div>'+(info?'<div class="info">'+info+'</div>':'')+'</div><div class="act">'+act+'</div></article>';
@@ -602,10 +602,13 @@ function blockCard(){
   var foot;
   if(rec===items.length){
     var u=state.b[k]&&state.b[k].u,left=u?daysBetween(today(),u):0;
-    if(left>0)foot='<div class="foot"><span class="hint">اكتملت السور. المراجعة الشاملة بعد '+daysTxt(left)+' ('+fmt(u)+').</span><button class="btn" disabled>مراجعة المجموعة</button></div>';
-    else foot='<div class="foot"><span class="hint">حان وقت المراجعة: اطلب من '+esc(P.child)+' تسميع السور كلها دون مساعدة.</span><button class="btn" data-act="review" data-k="'+k+'">'+LOCK+'مراجعة المجموعة</button></div>';
+    var hint=left>0
+      ?'اكتملت السور. المراجعة الشاملة مقترحة بعد '+daysTxt(left)+' ('+fmt(u)+')، والقرار للأهل.'
+      :'اكتملت السور. راجع السور مع '+esc(P.child)+'، أو افتح المجموعة التالية متى شئت.';
+    var nextLbl=k<NB-1?'فتح المجموعة التالية':'إنهاء التحدّي';
+    foot='<div class="foot"><span class="hint">'+hint+'</span><button class="btn" data-act="review" data-k="'+k+'">'+LOCK+'مراجعة المجموعة</button><button class="btn ghost" data-act="pass" data-k="'+k+'">'+LOCK+nextLbl+'</button></div>';
   }else{
-    foot='<div class="foot"><span class="hint">'+rec+' من '+items.length+' سور مسمَّعة. المجموعة التالية تُفتح بعد المراجعة.</span></div>';
+    foot='<div class="foot"><span class="hint">'+rec+' من '+items.length+' سور مسمَّعة. بعد تسميعها كلها يقرّر الأهل فتح المجموعة التالية.</span></div>';
   }
   return'<section class="card blk"><h2>المجموعة '+(k+1)+' من '+NB+'</h2><div class="meta">'+sourTxt(items.length)+' · '+ayatTxt(ay)+'</div><div class="rows">'+rows+'</div>'+foot+'</section>';
 }
@@ -617,7 +620,7 @@ function viewAll(){
   for(k=0;k<NB;k++){
     var items=blockItems(k),rows='',i,tag;
     for(i=k*BL;i<k*BL+items.length;i++)rows+=rowHTML(i);
-    if(blockPassed(k))tag='<span class="tag ok">'+CHECK+'تمت المراجعة</span>';
+    if(blockPassed(k))tag='<span class="tag ok">'+CHECK+(state.b[k]&&state.b[k].skip?'منتهية':'تمت المراجعة')+'</span>';
     else if(k===cur)tag='<span class="tag open">الحالية</span>';
     else tag='<span class="tag lock">'+LOCK+'مقفلة</span>';
     out+='<details class="grp"'+(k===cur?' open':'')+'><summary><span>المجموعة '+(k+1)+' · '+sourTxt(items.length)+'</span>'+tag+'</summary><div class="rows">'+rows+'</div></details>';
@@ -646,7 +649,7 @@ function viewParents(){
   else paceHtml='<ul>'+[2,3].map(function(rate){
     var days=Math.ceil(c.toLearn/rate)+GAP*left;
     return'<li>بوتيرة '+(rate===2?'آيتين':'3 آيات')+' في اليوم: حوالي '+fmt(addDays(today(),days))+'</li>';
-  }).join('')+'</ul><p class="hint" style="margin-top:6px">التقدير يحسب '+ayatTxt(c.toLearn)+' بقيت للحفظ، و'+daysTxt(GAP)+' انتظار قبل كل مراجعة.</p>';
+  }).join('')+'</ul><p class="hint" style="margin-top:6px">التقدير يحسب '+ayatTxt(c.toLearn)+' بقيت للحفظ، و'+daysTxt(GAP)+' انتظار مقترحة قبل كل مراجعة.</p>';
   var bk=store.lastBackup?'آخر نسخة احتياطية: '+fmt(store.lastBackup)+'.':'لم تُحفَظ نسخة احتياطية بعد.';
   return''
   +'<section class="card"><h2>الملف: '+esc(P.child)+'</h2><p>الوليّ: '+esc(P.parent)+'. عدد الأطفال على هذا الجهاز: '+store.profiles.length+'.</p><div class="row"><button class="btn ghost" data-act="addchild">تسجيل طفل جديد</button><button class="btn ghost" data-act="profiles">تبديل الطفل</button></div></section>'
@@ -709,10 +712,10 @@ function regFormHTML(cancelable){
 function guideHTML(){
   var st=[
    ['تسجيل الوليّ والطفل','عند أول فتح للتطبيق اكتب اسم الوليّ واسم الطفل، واختر رمزًا من 4 أرقام. احتفظ بالرمز لنفسك، فهو الذي يعتمد التسميع والجوائز. لا تحتاج إلى حساب.'],
-   ['اختيار سورة من المجموعة الحالية','السور مقسَّمة إلى مجموعات من 5 سور، من الأقصر إلى الأطول. داخل المجموعة اختر السورة التي يبدأ بها الطفل، أو دعه يختارها. لا تُفتح المجموعة التالية قبل إتمام السور الخمس ومراجعتها، وفي النهاية تُحفظ السور الـ38 كلها.'],
+   ['اختيار سورة من المجموعة الحالية','السور مقسَّمة إلى مجموعات من 5 سور، من الأقصر إلى الأطول. داخل المجموعة اختر السورة التي يبدأ بها الطفل، أو دعه يختارها. لا تُفتح المجموعة التالية قبل إتمام السور الخمس، وفي النهاية تُحفظ السور الـ38 كلها.'],
    ['الضغط على «أنا جاهز»','عندما يشعر الطفل أنه حفظ السورة اطلب منه أن يضغط على الزر. تتحول البطاقة إلى اللون الأزرق وتنتظر تسميعه أمامك.'],
    ['التسميع أمام الوليّ','اطلب من الطفل أن يسمّع السورة عن ظهر قلب دون مساعدة. إذا أتقنها فاضغط «اعتماد التسميع» واكتب رمزك، فتُضاف النقاط فورًا. وإن تعثّر فاترك السورة جاهزة ودعه يحاول مرة أخرى.'],
-   ['المراجعة بعد كل مجموعة','عند اكتمال السور الخمس انتظر 7 أيام، ثم اطلب من الطفل أن يسمّع السور كلها دون مساعدة. علّم السور التي تعثّر فيها لتُعاد وحدها. بعد النجاح تُفتح المجموعة التالية.'],
+   ['الانتقال إلى المجموعة التالية','عند اكتمال السور الخمس يقرّر الأهل وقت الانتقال. المراجعة الشاملة مقترحة بعد 7 أيام: اطلب من الطفل أن يسمّع السور كلها دون مساعدة، وعلّم السور التي تعثّر فيها لتُعاد وحدها. وإن رأيت الانتقال مباشرة فاضغط «فتح المجموعة التالية» واكتب رمزك، دون مراجعة.'],
    ['الجوائز','عندما تصل النقاط إلى جائزة تُفتح في قسم «الجوائز». أعطِ الجائزة للطفل ثم اضغط «تم استلامها» واكتب رمزك. في «مسيرتي» ترى نسبة القرب من كل جائزة. وعند التسجيل اكتب الجائزة التي تناسب أسرتك لكل عتبة من النقاط، ويمكنك تعديلها من قسم «الأهل».'],
    ['حفظ نسخة احتياطية','التقدّم محفوظ في متصفح الجهاز. استعمل دائمًا الجهاز والمتصفح نفسيهما، وانسخ نسخة احتياطية مرة كل شهر من قسم «الأهل».']
   ];
@@ -887,6 +890,20 @@ async function doReview(k){
     }
   };
 }
+async function doPass(k){
+  if(!(await askPin()))return;
+  var last=k>=NB-1;
+  openModal('<h2>'+(last?'إنهاء التحدّي؟':'فتح المجموعة التالية؟')+'</h2><p>تُعدّ المجموعة '+(k+1)+' منتهية دون مراجعة شاملة'+(last?'.':'، وتُفتح المجموعة التالية الآن.')+' القرار للأهل، والنقاط لا تتغيّر.</p><div class="row"><button class="btn" id="py">'+(last?'نعم، أنهِ المجموعة':'نعم، افتح المجموعة التالية')+'</button><button class="btn ghost" id="pn">إلغاء</button></div>');
+  document.getElementById('pn').onclick=closeModal;
+  document.getElementById('py').onclick=function(){
+    closeModal();
+    var before=unlockedKeys();
+    mutate(function(){state.b[k]=Object.assign(state.b[k]||{},{c:today(),skip:true})});
+    toast(last?'انتهت المجموعة الأخيرة!':'فُتحت المجموعة '+(k+2)+'.');
+    var added=unlockedKeys().filter(function(x){return before.indexOf(x)<0});
+    if(added.length)setTimeout(function(){celebrate(added)},300);
+  };
+}
 async function doClaim(key,on){
   if(!(await askPin()))return;
   mutate(function(){if(on)state.rw[key]=today();else delete state.rw[key]});
@@ -947,6 +964,7 @@ document.addEventListener('click',function(ev){
   else if(a==='recite')doRecite(num);
   else if(a==='undo')doUndo(num);
   else if(a==='review')doReview(k);
+  else if(a==='pass')doPass(k);
   else if(a==='claim')doClaim(key,true);
   else if(a==='unclaim')doClaim(key,false);
   else if(a==='changepin')doChangePin();
